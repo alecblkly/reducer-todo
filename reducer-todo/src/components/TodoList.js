@@ -21,7 +21,14 @@ const TodoList = () => {
     <div>
       <div>
         {state.todos.map(todo => (
-          <p key={todo.id}>{todo.item}</p>
+          <p
+            key={todo.id}
+            onClick={() =>
+              dispatch({ type: "TOGGLE_TODO_ITEM", payload: todo.id })
+            }
+          >
+            {todo.item}
+          </p>
           // console.log('console logging the map', todo.item)
         ))}
       </div>
@@ -32,6 +39,7 @@ const TodoList = () => {
           placeholder="Clean out bunny cage"
           className="input"
           onChange={handleChanges}
+          
         />
         <button
           type="submit"
@@ -41,6 +49,7 @@ const TodoList = () => {
         >
           Add new item
         </button>
+        <button>Clear Completed Items</button>
       </form>
     </div>
   );
