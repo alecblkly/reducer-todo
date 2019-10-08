@@ -4,18 +4,44 @@ import React, { useState, useReducer } from "react";
 import { initialState, reducer } from "../reducers/todoReducer";
 
 const TodoList = () => {
-    const [{ item }, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const [newTodoItem, setNewTodoItem] = useState("");
+
+  console.log("this is state", state);
+
+  const handleChanges = event => {
+    setNewTodoItem(event.target.value);
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+  };
 
   return (
     <div>
-        <p>{item}</p>
-      <input
-        type="text"
-        name="todo"
-        placeholder="Clean out bunny cage"
-        className="input"
-      />
-      <button>Add new item</button>
+      <div>
+        {state.todos.map(todo => (
+          <p key={todo.id}>{todo.item}</p>
+          // console.log('console logging the map', todo.item)
+        ))}
+      </div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="todo"
+          placeholder="Clean out bunny cage"
+          className="input"
+          onChange={handleChanges}
+        />
+        <button
+          type="submit"
+          onClick={() =>
+            dispatch({ type: "ADD_TODO_ITEM", payload: newTodoItem })
+          }
+        >
+          Add new item
+        </button>
+      </form>
     </div>
   );
 };
