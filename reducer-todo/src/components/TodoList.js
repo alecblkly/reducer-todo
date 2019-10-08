@@ -23,6 +23,7 @@ const TodoList = () => {
         {state.todos.map(todo => (
           <p
             key={todo.id}
+            className={`item${todo.completed ? " completed" : ""}`}
             onClick={() =>
               dispatch({ type: "TOGGLE_TODO_ITEM", payload: todo.id })
             }
@@ -39,7 +40,6 @@ const TodoList = () => {
           placeholder="Clean out bunny cage"
           className="input"
           onChange={handleChanges}
-          
         />
         <button
           type="submit"
@@ -49,7 +49,9 @@ const TodoList = () => {
         >
           Add new item
         </button>
-        <button>Clear Completed Items</button>
+        <button onClick={() => dispatch({ type: "REMOVE_TODO_ITEM" })}>
+          Clear Completed Items
+        </button>
       </form>
     </div>
   );
